@@ -1,0 +1,4 @@
+file-persistence:
+  path: file
+source:
+  rss: ["http://www.blog.pythonlibrary.org/feed/"]

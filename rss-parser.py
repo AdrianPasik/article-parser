@@ -1,14 +1,17 @@
-from bs4 import element
+from articleParser import ArticleParser
 import feedparser
 import logging
-import couchdb
+from FileSystemSaver import FileSystemSaver
 import sys
 import random
 import time
-
+import yaml
 from newspaper import article
-from articles import ArticleSaver
 from datetime import datetime
+
+import yaml
+with open('config.yml', 'r') as file:
+    configuration = yaml.safe_load(file)
 
 logger = logging.getLogger('main')
 logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
@@ -21,13 +24,14 @@ fileHandler = logging.FileHandler(
 fileHandler.setFormatter(formatter)
 logger.addHandler(fileHandler)
 
-couch = couchdb.Server('http://admin:couch8admin@127.0.0.1:5984/')
-db = couch['newsqa']
 
-articleSaver = ArticleSaver(db)
+
+
+articleSaver = FileSystemSaver(configuration["file-persistence"]["path"])
+
 
 rss = ["http://www.blog.pythonlibrary.org/feed/"]
-for rssKey in rss:
+""" for rssKey in rss:
     logger.info('Processing RSS key {}'.format(rssKey))
     feed = feedparser.parse(rssKey)
     logger.info('Found {} keys in RSS'.format(len(feed["entries"])))
@@ -40,8 +44,8 @@ for rssKey in rss:
             logger.info('URL {} does not exist. Processing'.format(link))
             sleepSeconds = random.randint(15, 40)
             logger.info('Sleeping for {} seconds.'.format(sleepSeconds))
-            time.sleep(sleepSeconds)
-            content = articleSaver.Process(link)
-            articleSaver.Save(link, content)
+            time.sleep(sleepSeconds) """
+            #content = articleSaver.Process(link)
+            #articleSaver.Save(link, content)
             
 

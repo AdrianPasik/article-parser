@@ -1,0 +1,4 @@
+file-persistence:
+  path: "c:\\pytestdump"
+source:
+  rss: ["http://www.blog.pythonlibrary.org/feed/"]
