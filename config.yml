@@ -1,0 +1,8 @@
+sleep-seconds:
+  min: 12
+  max: 50 
+file-persistence:
+  path: "path-to-existing-local-dir"
+source:
+  rss: 
+    - "some-rss"
