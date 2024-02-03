@@ -26,12 +26,14 @@ logger.addHandler(fileHandler)
 
 
 
-
+print(configuration["source"]["rss"][0])
+minSleepInSeconds = int(configuration["sleep-seconds"]["min"])
+maxSleepInSeconds = int(configuration["sleep-seconds"]["max"])
 articleSaver = FileSystemSaver(configuration["file-persistence"]["path"])
+articleParser = ArticleParser()
 
-
-rss = ["http://www.blog.pythonlibrary.org/feed/"]
-""" for rssKey in rss:
+rss = configuration["source"]["rss"]
+for rssKey in rss:
     logger.info('Processing RSS key {}'.format(rssKey))
     feed = feedparser.parse(rssKey)
     logger.info('Found {} keys in RSS'.format(len(feed["entries"])))
@@ -41,11 +43,10 @@ rss = ["http://www.blog.pythonlibrary.org/feed/"]
         if articleSaver.DoesArticleExist(link):
             logger.info('URL {} already exist, exiting'.format(link))
         else:
-            logger.info('URL {} does not exist. Processing'.format(link))
-            sleepSeconds = random.randint(15, 40)
+            logger.info('New URL found. Processing {}'.format(link))
+            content = articleParser.Process(link)
+            articleSaver.Save(link, content)
+            sleepSeconds = random.randint(minSleepInSeconds, maxSleepInSeconds)
             logger.info('Sleeping for {} seconds.'.format(sleepSeconds))
-            time.sleep(sleepSeconds) """
-            #content = articleSaver.Process(link)
-            #articleSaver.Save(link, content)
+            time.sleep(sleepSeconds)
             
-
