@@ -1,5 +1,5 @@
 file-persistence:
-  path: file
+  path: insert-some-local-file-path
 source:
   rss: ["http://www.blog.pythonlibrary.org/feed/"]
     

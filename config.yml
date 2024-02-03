@@ -1,8 +1,0 @@
-sleep-seconds:
-  min: 12
-  max: 50 
-file-persistence:
-  path: "c:\\pytestdump"
-source:
-  rss: 
-    - "http://www.blog.pythonlibrary.org/feed/"
